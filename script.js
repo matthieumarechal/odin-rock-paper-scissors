@@ -3,6 +3,11 @@
 let machineChoice;
 let playerChoice;
 
+// create 2 variables for scoring
+
+let computerScore = 0;
+let humanScore = 0;
+
 // create 3 variables for the game : Rock Paper Scissors
 
 const rock = "rock";
@@ -11,53 +16,76 @@ const scissors = "scissors";
 
 // we randomly assign Rock Paper Scissors to the Machine
 
-let randomNumber = Math.floor(Math.random() * 3);
-console.log("DEBBUG - the random number for the machine is : " + randomNumber);
+function getMachineChoice() {
 
-machineChoice = 
-    randomNumber === 0 ? rock :
-    randomNumber === 1 ? paper : scissors;
+    let randomNumber = Math.floor(Math.random() * 3);
+    console.log("DEBBUG - the random number for the machine is : " + randomNumber);
 
-console.log("DEBBUG - the machine choose : " + machineChoice);
+    let choice = 
+        randomNumber === 0 ? rock :
+        randomNumber === 1 ? paper : scissors;
+
+    console.log("DEBBUG - the machine choose : " + choice);
+
+    return choice;
+
+}
 
 // Ask for the player his choice with a number about Rock Paper Scissors
 
-let choice = prompt("Make a choice ! Type the corresponding number of your choice : \n 1 - Rock\n 2 - Paper\n 3 - Scissors");
+function getHumanChoice() {
 
-playerChoice = 
-    choice === "" ? alert("you didn't type anything please try again") :
-    choice === "1" ? rock :
-    choice === "2" ? paper :
-    choice === "3" ? scissors : alert("You didn't type a good number");
+    let number = prompt("Make a choice ! Type the corresponding number of your choice : \n 1 - Rock\n 2 - Paper\n 3 - Scissors");
 
-console.log("DEBBUG - the player choose : " + playerChoice);
+    let choice = 
+        number === "" ? alert("you didn't type anything please try again") :
+        number === "1" ? rock :
+        number === "2" ? paper :
+        number === "3" ? scissors : alert("You didn't type a good number");
+
+    console.log("DEBBUG - the player choose : " + choice);
+
+    return choice;
+
+}
 
 // We pass our two players choices variables through the comparators and, based on that, we announce who wins the game.
 
-function whoWin (machineChoice, playerChoice) {
+function PlayRound(machineChoice, playerChoice) {
 
-    let result;
     let comparison = `${machineChoice} ${playerChoice}`;
 
     console.log("DEBBUG - comparison string : " + comparison);
 
     if (machineChoice === playerChoice) {
         console.log("DEBBUG - result is : Draw...");
-        return result = "Draw";
+        return 
     }
     
-    result =
-        comparison === "rock paper" ? "You win!" :
-        comparison === "rock scissors" ? "You loose!" :
+    comparison === "rock paper" ? humanScore++ :
+    comparison === "rock scissors" ? computerScore++ :
 
-        comparison === "paper rock" ? "You loose!" :
-        comparison === "paper scissors" ? "You win!" :
+    comparison === "paper rock" ? computerScore++ :
+    comparison === "paper scissors" ? humanScore++ :
 
-        comparison === "scissors rock" ? "You win!" : "You loose!";
+    comparison === "scissors rock" ? humanScore++ : computerScore++;
 
-        console.log("DEBBUG - result : " + result);
-
-        return;
+    return;
 }
 
-whoWin(machineChoice, playerChoice);
+function playGame() {
+
+    machineChoice = getMachineChoice();
+    playerChoice = getHumanChoice();
+    PlayRound(machineChoice, playerChoice);
+    console.log("DEBBUG - computer's score : " + computerScore + " human's score : " + humanScore);
+
+}
+
+
+for (i = 0; i < 5; i++) {
+    playGame();
+}
+
+
+
