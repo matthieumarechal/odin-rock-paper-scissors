@@ -58,6 +58,7 @@ function PlayRound(machineChoice, playerChoice) {
     console.log("DEBBUG - comparison string : " + comparison);
 
     if (machineChoice === playerChoice) {
+        alert(`${machineChoice} and ${playerChoice} it's a draw...`)
         console.log("DEBBUG - result is : Draw...");
         return 
     }
@@ -83,8 +84,17 @@ function playGame() {
 }
 
 
-for (i = 0; i < 5; i++) {
+for (i = 1; i < 6; i++) {
+    
+    console.log("DEBBUG - round : " + i);
+
     playGame();
+    
+    if (i === 5) {
+       let winner = (computerScore > humanScore) ? "Computer wins!" : "Human wins!";
+       console.log(winner);
+    }
+    
 }
 
 
